@@ -33,3 +33,20 @@
 
 var arr = [1, 2, 3];
 var max = Math.max(...arr);
+
+# apply、call 和 bind 的区别？
+
+xw.say.call(xh);
+xw.say.apply(xh);
+xw.say.bind(xh)();
+xw.say.call(xh,"实验小学","六年级");  
+xw.say.apply(xh,["实验小学","六年级"]);
+xw.say.bind(xh,"实验小学","六年级")();
+
+# Object.is()、==、===的区别
+
+- Object.is()与===用法类似，用于判断两个值的是否相等，区别在两种情况
+- +0 === -0 //true
+- NaN === NaN // false
+- Object.is(+0, -0) // false
+- Object.is(NaN, NaN) // true
