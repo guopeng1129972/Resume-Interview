@@ -92,11 +92,58 @@ $bg-color: #d9d9d9; /* 定义： */
   清除浮动
   解决外边距合并
   布局
-# css3中的变形（transform）、过渡(transtion)、动画(animation)
-旋转rotate、扭曲skew、缩放scale和移动translate以及矩阵变形matrix
-- transform-origin（X,Y）改变基点 这个和transform是同级的设置
+
+# css3 中的变形（transform）、过渡(transtion)、动画(animation)
+
+旋转 rotate、扭曲 skew、缩放 scale 和移动 translate 以及矩阵变形 matrix
+
+- transform-origin（X,Y）改变基点 这个和 transform 是同级的设置
 - transform:rotate(30deg)
-transform:rotate(30deg),2D旋转，正值为顺时针旋转，负值为逆时针旋转，默认旋转基点是中心点，也可以通过transform-origin（X,Y）改变基点。
-- transform:skew(30deg,10deg),注意，这里的X轴和Y轴与我们平时认为的坐标系的XY轴正好相反
-- transform：scale（2,1.5），表示在水平方向（X轴）缩放2倍，在垂直方向（Y轴）缩放1.5倍
-- transform：translate（100px，20px），表示在水平方向上移动100px；
+  transform:rotate(30deg),2D 旋转，正值为顺时针旋转，负值为逆时针旋转，默认旋转基点是中心点，也可以通过 transform-origin（X,Y）改变基点。
+- transform:skew(30deg,10deg),注意，这里的 X 轴和 Y 轴与我们平时认为的坐标系的 XY 轴正好相反
+- transform：scale（2,1.5），表示在水平方向（X 轴）缩放 2 倍，在垂直方向（Y 轴）缩放 1.5 倍
+- transform：translate（100px，20px），表示在水平方向上移动 100px；
+
+# 修改 ElementUI 样式的几种方式
+
+- 1.新建全局样式库
+  > 新建 global.css 文件，并在 main.js 中引入。 global.css 文件一般都放在 src->assets 静态资源文件夹下的 style 文件夹下，在 main.js 的引用写法如下：
+  > import "./assets/style/global.css";
+  > 在 global.css 文件中写的样式，无论在哪一个 vue 单页面都会覆盖 ElementUI 默认的样式。
+- 2.在当前 vue 单页面中添加一个新的`style`标签
+  > 在当前的 vue 单页面的 style 标签后，添加一对新的 style 标签，新的 style 标签中不要添加 scoped 属性。在有写 scoped 的 style 标签中书写的样式不会覆盖 ElementUI 默认的样式。
+- 3.使用/deep/关键字，或者使用`>>>`深度修改样式符
+
+```html
+<style scoped>
+  .a >>> .b {
+    /* ... */
+  }
+</style>
+<!-- 编译后 -->
+.a[data-v-f3f3eg9] .b { /* ... */ }
+<!-- 使用别名 -->
+<style scoped lang="less">
+  @deep: ~">>>";
+  .box {
+    @{deep} .title {
+      ...;
+    }
+  }
+</style>
+```
+
+**~ 表示转义**
+转义允许您将任意字符串用作属性或变量值。除插值外，里面的任何东西 ~"anything" 或 ~'anything' 原样使用。
+
+```css
+.weird-element {
+  content: ~"^//* some horrible but needed css hack";
+}
+编译为以下内容： .weird-element {
+  content: ^// some horrible but needed ss hack;
+}
+```
+
+- 4.内联样式
+  > 直接写
