@@ -31,17 +31,23 @@
 ```bash
 yum clean all
 ```
-### yum的/repodata/repomd.xml错误的解决方法
+
+### yum 的/repodata/repomd.xml 错误的解决方法
+
 Error: Failed to download metadata for repo 'epel': Cannot download repomd.xml: Cannot download repodata/repomd.xml: All mirrors were tried
-#### 方法1：
+
+#### 方法 1：
+
 cd  /etc/yum.repos.d/
 vim Centos-报错名
-将baseurl 添加一个  https://mirrors.aliyun.com/centos/$releasever/BaseOS/$basearch/os/
+将 baseurl 添加一个   https://mirrors.aliyun.com/centos/$releasever/BaseOS/$basearch/os/
+
 #### 还不行：
-可能之前安装过，重复配置了，删除相关repo文件 即可
 
+可能之前安装过，重复配置了，删除相关 repo 文件 即可
 
-### 解决CentOS yum无法更新的问题
+### 解决 CentOS yum 无法更新的问题
+
 ```bash
 sed -i "s|enabled=1|enabled=0|g" /etc/yum/pluginconf.d/fastestmirror.conf
 
@@ -56,5 +62,7 @@ yum makecache
 ```
 
 # tree
+
 - 显示一级目录树 `tree -L 1 -d`
 - 显示一级 二级目录树 `tree -L 2 -d`
+- 显示一级 所有文件 `tree -L 1 -a `
